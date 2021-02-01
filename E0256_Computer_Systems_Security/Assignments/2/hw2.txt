@@ -1,0 +1,165 @@
+
+
+a)
+
+1.
+ip.src == 192.168.0.100 and http
+ip.src == 192.168.0.100 and http.host contains ".com"
+
+tcpdump src 192.168.0.100 and port 80 -qns 0 -A -r trace1.pcap  | grep -E '.com|amazon|bing|madison|google|baidu'
+
+amazon, madisonproperty, bing, google
+
+
+------------------------------------------------------------------
+
+
+2.
+http.request.uri contains "q="
+
+tcpdump src 192.168.0.100 and port 80 -qns 0 -A -r trace1.pcap | grep -E 'q=|qry=|adventure|stochastic|madison|map|chicago|metro'
+
+Adventure in Stochastic processses, Chicago Metro, Madison Map
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+
+
+b)
+tcpdump port 21 -qns 0 -A -r trace2.pcap | grep -E 'USER|PASS'
+
+User: shiningmoon
+Pass: public
+
+
+.ED...9ARETR dragon.zip
+.E./..s.RETR ARP.java
+.E.%..{.RETR L2Switch.java
+.E.....~RETR phase1.html
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+
+
+c)
+
+tcpdump -qns 0 -A -r trace3.pcap | grep UDP
+tcpdump -qns 0 -A -r trace3.pcap | grep ICMP
+
+src: 192.168.0.100.37782 
+dest: 74.125.225.46.33437
+
+14 hops
+
+13:42:21.986387 IP 192.168.0.1 > 192.168.0.100: ICMP time exceeded in-transit, length 60
+13:42:21.987906 IP 192.168.0.1 > 192.168.0.100: ICMP time exceeded in-transit, length 60
+13:42:21.988726 IP 192.168.0.1 > 192.168.0.100: ICMP time exceeded in-transit, length 60
+
+13:42:21.995775 IP 10.131.180.1 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.003107 IP 10.131.180.1 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.009769 IP 10.131.180.1 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+
+13:42:22.016973 IP 96.34.20.20 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.024190 IP 96.34.20.20 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.030085 IP 96.34.20.20 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+
+13:42:22.044661 IP 96.34.17.95 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.056580 IP 96.34.17.95 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.068477 IP 96.34.17.95 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+
+13:42:22.080997 IP 96.34.16.112 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.093596 IP 96.34.16.112 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.105034 IP 96.34.16.112 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+
+13:42:22.129717 IP 96.34.16.77 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.153995 IP 96.34.16.77 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.180373 IP 96.34.16.77 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+
+13:42:22.200504 IP 96.34.2.4 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.216519 IP 96.34.2.4 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.232753 IP 96.34.2.4 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+
+13:42:22.252384 IP 96.34.0.7 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.268006 IP 96.34.0.7 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.284325 IP 96.34.0.7 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+
+13:42:22.306509 IP 96.34.0.9 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.330461 IP 96.34.0.9 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.354416 IP 96.34.0.9 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+
+13:42:22.377241 IP 96.34.3.9 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.400355 IP 96.34.3.9 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+13:42:22.423936 IP 96.34.3.9 > 192.168.0.100: ICMP time exceeded in-transit, length 76
+
+13:42:22.447316 IP 96.34.152.30 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.468717 IP 96.34.152.30 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.490988 IP 96.34.152.30 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+
+13:42:22.512803 IP 209.85.254.120 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.534718 IP 209.85.254.120 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.561546 IP 209.85.254.120 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+
+13:42:22.583759 IP 209.85.250.28 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.605753 IP 209.85.250.28 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+13:42:22.628562 IP 209.85.250.28 > 192.168.0.100: ICMP time exceeded in-transit, length 36
+
+13:42:22.650444 IP 74.125.225.46 > 192.168.0.100: ICMP 74.125.225.46 udp port 33474 unreachable, length 60
+13:42:22.672457 IP 74.125.225.46 > 192.168.0.100: ICMP 74.125.225.46 udp port 33475 unreachable, length 60
+13:42:22.692514 IP 74.125.225.46 > 192.168.0.100: ICMP 74.125.225.46 udp port 33476 unreachable, length 60
+
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+
+
+d)
+
+tcpdump port 110 -qns 0 -A -r trace4.pcap | grep -E 'user|pass|stat|list|retr|From:|To:|Subject:|Date:'
+
+1.
+user cs155@dummymail.com
+pass whitehat
+
+------------------------------------------------------------------
+
+2.
+5
+
+
+------------------------------------------------------------------
+
+
+3.
+E..0N)@.@..8..q......s.n...<(,.VP....c..retr 1
+Date: Fri, 23 Apr 2010 08:20:52 -0700
+From: joe <cs155@dummymail.com>
+To: cs155@dummymail.com
+Subject: foobar
+E..0N,@.@..5..q......s.n...D(,.:P.. .$..retr 4
+Date: Fri, 23 Apr 2010 08:23:25 -0700
+From: joe <cs155@dummymail.com>
+To: cs155@dummymail.com
+Subject: can you see this subject?
+E..0N/@.@..2..q......s.n...L(,.IP..P....retr 5
+Date: Fri, 23 Apr 2010 10:25:00 -0700
+From: hariny <harinym@stanford.edu>
+To: cs155@dummymail.com
+Subject: test message
+E..0N4@.@..-..q......s.n...Z(,.hP.!.....retr 3
+Date: Fri, 23 Apr 2010 08:22:28 -0700
+From: hariny <harinym@stanford.edu>
+To: cs155@dummymail.com
+Subject: geology rocks!
+E..0N7@.@..*..q......s.n...b(,.aP.%..Q..retr 2
+Date: Fri, 23 Apr 2010 08:21:50 -0700
+From: hariny <harinym@stanford.edu>
+To: cs155@dummymail.com
+Subject: wassup
+
+
+-------------------------------------------------------------
+
+

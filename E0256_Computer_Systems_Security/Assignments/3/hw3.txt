@@ -1,0 +1,10 @@
+
+Self-study homework: 
+-------------------------
+
+Read and learn about the TPM-JS project, a way to use the TPM right from your browser! 
+Yes, read and try to understand the code shown on the project page (it aids understanding). 
+Yes, understand the functionality in the demo window (software TPM simulator) shown on the right of the Web page in the TPM-JS project.
+You may omit the last three sections on Sealing, Importing and Authorization.
+
+https://google.github.io/tpm-js/
