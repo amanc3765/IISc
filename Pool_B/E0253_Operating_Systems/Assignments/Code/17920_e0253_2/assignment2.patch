@@ -1,0 +1,435 @@
+From 2c05026f4cb14a97d47635f7c3dd9697fabe6672 Mon Sep 17 00:00:00 2001
+From: Aman Choudhary <amanc@iisc.ac.in>
+Date: Thu, 13 May 2021 15:11:30 +0530
+Subject: [PATCH 1/2] os assignment-2
+
+Signed-off-by: Aman Choudhary <amanc@iisc.ac.in>
+---
+ Makefile                               |  2 +-
+ arch/x86/entry/syscalls/syscall_64.tbl |  4 ++
+ balloon/Makefile                       |  1 +
+ balloon/balloon.c                      | 27 +++++++++
+ freememory/Makefile                    |  1 +
+ freememory/freememory.c                | 80 ++++++++++++++++++++++++++
+ include/linux/syscalls.h               |  4 ++
+ mm/madvise.c                           | 28 ++++++++-
+ mm/page_alloc.c                        | 64 +++++++++++++++++++++
+ mm/vmscan.c                            | 47 ++++++++++++++-
+ 10 files changed, 254 insertions(+), 4 deletions(-)
+ create mode 100644 balloon/Makefile
+ create mode 100644 balloon/balloon.c
+ create mode 100644 freememory/Makefile
+ create mode 100644 freememory/freememory.c
+
+diff --git a/Makefile b/Makefile
+index 1673c12fb..f364d36fb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1097,7 +1097,7 @@ export MODORDER := $(extmod-prefix)modules.order
+ export MODULES_NSDEPS := $(extmod-prefix)modules.nsdeps
+ 
+ ifeq ($(KBUILD_EXTMOD),)
+-core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/
++core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/ balloon/ freememory/
+ 
+ vmlinux-dirs	:= $(patsubst %/,%,$(filter %/, \
+ 		     $(core-y) $(core-m) $(drivers-y) $(drivers-m) \
+diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+index 78672124d..11cf30f2c 100644
+--- a/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -406,5 +406,9 @@
+ 545	x32	execveat		compat_sys_execveat
+ 546	x32	preadv2			compat_sys_preadv64v2
+ 547	x32	pwritev2		compat_sys_pwritev64v2
++
++548       64        balloon        sys_balloon
++549       64        freememory     sys_freememory
++
+ # This is the end of the legacy x32 range.  Numbers 548 and above are
+ # not special and are not to be used for x32-specific syscalls.
+diff --git a/balloon/Makefile b/balloon/Makefile
+new file mode 100644
+index 000000000..4dfbecae3
+--- /dev/null
++++ b/balloon/Makefile
+@@ -0,0 +1 @@
++obj-y := balloon.o
+\ No newline at end of file
+diff --git a/balloon/balloon.c b/balloon/balloon.c
+new file mode 100644
+index 000000000..2b22a3baf
+--- /dev/null
++++ b/balloon/balloon.c
+@@ -0,0 +1,27 @@
++// Ballooning subsystem ---------------------------------------------------
++
++#include <linux/kernel.h>
++#include <linux/sched.h>
++
++#define SIGBALLOON 44
++#define BALLOON_BIT 27
++
++int balloon_process_pid;
++int balloon_process_start;
++struct task_struct * balloon_process_task;
++unsigned long balloon_page_on_mask = (1UL << BALLOON_BIT);
++unsigned long balloon_page_off_mask = ~(1UL << BALLOON_BIT);
++
++asmlinkage long __x64_sys_balloon(void) {
++
++    balloon_process_start = 1;
++    printk("\nInside (balloon) System Call\n");
++
++    balloon_process_task = current;
++    balloon_process_pid = current -> pid;
++    printk("\nRegistered process with PID: %d\n", balloon_process_task -> pid);
++
++    return 0;
++}
++
++//-------------------------------------------------------------------------
+\ No newline at end of file
+diff --git a/freememory/Makefile b/freememory/Makefile
+new file mode 100644
+index 000000000..0a2825750
+--- /dev/null
++++ b/freememory/Makefile
+@@ -0,0 +1 @@
++obj-y := freememory.o
+\ No newline at end of file
+diff --git a/freememory/freememory.c b/freememory/freememory.c
+new file mode 100644
+index 000000000..5b386756f
+--- /dev/null
++++ b/freememory/freememory.c
+@@ -0,0 +1,80 @@
++// SIGBALLOON subsystem ---------------------------------------------------
++
++#include <linux/kernel.h>
++#include <linux/stddef.h>
++#include <linux/mm.h>
++#include <linux/highmem.h>
++#include <linux/swap.h>
++#include <linux/interrupt.h>
++#include <linux/pagemap.h>
++#include <linux/jiffies.h>
++#include <linux/memblock.h>
++#include <linux/compiler.h>
++#include <linux/kernel.h>
++#include <linux/kasan.h>
++#include <linux/module.h>
++#include <linux/suspend.h>
++#include <linux/pagevec.h>
++#include <linux/blkdev.h>
++#include <linux/slab.h>
++#include <linux/ratelimit.h>
++#include <linux/oom.h>
++#include <linux/topology.h>
++#include <linux/sysctl.h>
++#include <linux/cpu.h>
++#include <linux/cpuset.h>
++#include <linux/memory_hotplug.h>
++#include <linux/nodemask.h>
++#include <linux/vmalloc.h>
++#include <linux/vmstat.h>
++#include <linux/mempolicy.h>
++#include <linux/memremap.h>
++#include <linux/stop_machine.h>
++#include <linux/random.h>
++#include <linux/sort.h>
++#include <linux/pfn.h>
++#include <linux/backing-dev.h>
++#include <linux/fault-inject.h>
++#include <linux/page-isolation.h>
++#include <linux/debugobjects.h>
++#include <linux/kmemleak.h>
++#include <linux/compaction.h>
++#include <trace/events/kmem.h>
++#include <trace/events/oom.h>
++#include <linux/prefetch.h>
++#include <linux/mm_inline.h>
++#include <linux/mmu_notifier.h>
++#include <linux/migrate.h>
++#include <linux/hugetlb.h>
++#include <linux/sched/rt.h>
++#include <linux/sched/mm.h>
++#include <linux/page_owner.h>
++#include <linux/kthread.h>
++#include <linux/memcontrol.h>
++#include <linux/ftrace.h>
++#include <linux/lockdep.h>
++#include <linux/nmi.h>
++#include <linux/psi.h>
++#include <linux/padata.h>
++#include <linux/khugepaged.h>
++#include <linux/buffer_head.h>
++#include <uapi/asm-generic/siginfo.h>    //siginfo
++#include <linux/pid.h>    //find_task_by_pid_type
++#include <linux/sched.h>
++#include <linux/sched/signal.h>
++#include <asm/current.h>
++#include <asm/sections.h>
++#include <asm/tlbflush.h>
++#include <asm/div64.h>
++
++asmlinkage long __x64_sys_freememory(void) {
++
++    unsigned long freeMemory = (global_zone_page_state(NR_FREE_PAGES) << (PAGE_SHIFT - 10)) / 1024;
++    printk("\nInside (freememory) System Call %lu \n", freeMemory);
++
++    return freeMemory;
++}
++
++//-------------------------------------------------------------------------
++
++
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 7688bc983..995015e9b 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -1364,4 +1364,8 @@ int __sys_getsockopt(int fd, int level, int optname, char __user *optval,
+ 		int __user *optlen);
+ int __sys_setsockopt(int fd, int level, int optname, char __user *optval,
+ 		int optlen);
++
++asmlinkage long sys_balloon(void);
++asmlinkage long sys_freememory(void);
++
+ #endif
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 6a6608587..821726946 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -303,6 +303,15 @@ static long madvise_willneed(struct vm_area_struct *vma,
+ 	return 0;
+ }
+ 
++// Ballooning Subsystem ---------------------------------------------------
++
++extern int balloon_process_start;
++extern struct task_struct *balloon_process_task;
++extern unsigned long balloon_page_on_mask;
++extern unsigned long balloon_page_off_mask;
++
++//-------------------------------------------------------------------------
++
+ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 				unsigned long addr, unsigned long end,
+ 				struct mm_walk *walk)
+@@ -460,8 +469,25 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 			if (!isolate_lru_page(page)) {
+ 				if (PageUnevictable(page))
+ 					putback_lru_page(page);
+-				else
++				else{
++					// Ballooning Subsystem ---------------------------------------------------
++
++					/* 
++						Identify pages of balloon process.
++					*/
++
++					if(balloon_process_start){
++						if(current == balloon_process_task){
++							page->flags |= balloon_page_on_mask;
++						}else{
++							page->flags &= balloon_page_off_mask;
++						}
++					}
++
++					//-------------------------------------------------------------------------
++
+ 					list_add(&page->lru, &page_list);
++				}					
+ 			}
+ 		} else
+ 			deactivate_page(page);
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 519a60d5b..28ef1ac89 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3253,6 +3253,19 @@ void free_unref_page(struct page *page)
+ 	local_irq_restore(flags);
+ }
+ 
++// Ballooning Subsystem ---------------------------------------------------
++
++extern int balloon_process_start;
++extern struct task_struct *balloon_process_task;
++extern unsigned long balloon_page_on_mask;
++extern unsigned long balloon_page_off_mask;
++int balloon_raise_signal = 1;
++
++#define SIGBALLOON 		  44
++#define LOW_MEMORY_LIMIT (1UL * 1024 * 1024) 
++
++//-------------------------------------------------------------------------
++
+ /*
+  * Free a list of 0-order pages
+  */
+@@ -3264,6 +3277,21 @@ void free_unref_page_list(struct list_head *list)
+ 
+ 	/* Prepare pages for freeing */
+ 	list_for_each_entry_safe(page, next, list, lru) {
++
++		// Ballooning Subsystem ---------------------------------------------------
++
++		/*
++			Reset BALLOON_BIT on page flags.
++		*/
++	
++		if(balloon_process_start){
++			if(page->flags & balloon_page_on_mask){
++				page->flags &= balloon_page_off_mask;
++			}
++		}
++
++		//-------------------------------------------------------------------------
++		
+ 		pfn = page_to_pfn(page);
+ 		if (!free_unref_page_prepare(page, pfn))
+ 			list_del(&page->lru);
+@@ -4971,6 +4999,42 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, int preferred_nid,
+ 	gfp_t alloc_mask; /* The gfp_t that was actually used for allocation */
+ 	struct alloc_context ac = { };
+ 
++	// Ballooning Subsystem ---------------------------------------------------
++
++	/*
++		Checks if the physical memory usage is below 1GB or not. 
++		If the check succeeds, then we send a signal from kernel space to our user space application. 
++	*/
++
++	if(balloon_process_start){	
++		unsigned long freeMemory = global_zone_page_state(NR_FREE_PAGES) << (PAGE_SHIFT - 10);
++
++		if(freeMemory <= LOW_MEMORY_LIMIT){
++			struct kernel_siginfo signal_info;
++			memset(&signal_info, 0, sizeof(struct kernel_siginfo));
++
++			signal_info.si_signo = SIGBALLOON;
++			signal_info.si_code = SI_QUEUE;
++			signal_info.si_int = 999; 
++
++			if (balloon_process_task != NULL) {
++				if(balloon_raise_signal){
++					if (send_sig_info(SIGBALLOON, &signal_info, balloon_process_task) < 0) {
++						printk("\n ERROR: SIGBALLOON failed, Return value is negative\n");									
++					}else{
++						balloon_raise_signal = 0;				
++					}
++				}
++			}else{
++				printk("\n ERROR: SIGBALLOON failed, task_struct is NULL\n");
++			}	
++		}else{
++			balloon_raise_signal = 1;
++		}
++	}
++
++	//-------------------------------------------------------------------------
++
+ 	/*
+ 	 * There are several places where we assume that the order value is sane
+ 	 * so bail out early if the request is out of bound.
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index ad9f2adaf..707dcce6b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1064,6 +1064,17 @@ static void page_check_dirty_writeback(struct page *page,
+ 		mapping->a_ops->is_dirty_writeback(page, dirty, writeback);
+ }
+ 
++// Ballooning Subsystem ---------------------------------------------------
++
++extern int balloon_process_start;
++extern struct task_struct *balloon_process_task;
++extern unsigned long balloon_page_on_mask;
++extern unsigned long balloon_page_off_mask;
++
++LIST_HEAD(balloon_process_pagelist);
++
++//-------------------------------------------------------------------------
++
+ /*
+  * shrink_page_list() returns the number of reclaimed pages
+  */
+@@ -1098,6 +1109,22 @@ static unsigned int shrink_page_list(struct list_head *page_list,
+ 
+ 		VM_BUG_ON_PAGE(PageActive(page), page);
+ 
++		// Ballooning Subsystem ---------------------------------------------------
++
++		/*
++			Skip swappping out pages, which don't belong to ballooning process.
++		*/
++
++		if (balloon_process_start) {
++			if (PageAnon(page)) {
++				if ((page->flags & balloon_page_on_mask) == 0) {
++					continue;
++				}
++			}
++		}
++
++		//-------------------------------------------------------------------------
++
+ 		nr_pages = compound_nr(page);
+ 
+ 		/* Account the number of base pages even though THP */
+@@ -2158,8 +2185,24 @@ unsigned long reclaim_pages(struct list_head *page_list)
+ 						&sc, &dummy_stat, false);
+ 		while (!list_empty(&node_page_list)) {
+ 			page = lru_to_page(&node_page_list);
+-			list_del(&page->lru);
+-			putback_lru_page(page);
++			
++			// Ballooning Subsystem ---------------------------------------------------
++
++			/*
++				madvise() passes a single page to be reclaimed. 
++				shrink_page_list() initiates writeback (swapping out) for that page, 
++				but doesn't perform reclaim immediately. 
++				The page is returned back and resides in node_page_list, which is then 
++				moved to a custom made list: balloon_process_pagelist. 
++				The list, is then passed on to shrink_page_list, which subsequently initiates the page reclaim.
++			*/
++
++			if (balloon_process_start) {
++				list_move(&page->lru, &balloon_process_pagelist);
++				shrink_page_list(&balloon_process_pagelist, NODE_DATA(nid), &sc, &dummy_stat, false);				// }
++			}
++
++			//-------------------------------------------------------------------------
+ 		}
+ 	}
+ 
+-- 
+2.25.1
+
+From 7e25b6632a65b2583dad7e2f22d6cff2e2eee3d6 Mon Sep 17 00:00:00 2001
+From: Aman Choudhary <amanc@iisc.ac.in>
+Date: Thu, 13 May 2021 17:36:50 +0530
+Subject: [PATCH 2/2] os assignment-2
+
+Signed-off-by: Aman Choudhary <amanc@iisc.ac.in>
+---
+ freememory/freememory.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/freememory/freememory.c b/freememory/freememory.c
+index 5b386756f..7a746259b 100644
+--- a/freememory/freememory.c
++++ b/freememory/freememory.c
+@@ -70,8 +70,6 @@
+ asmlinkage long __x64_sys_freememory(void) {
+ 
+     unsigned long freeMemory = (global_zone_page_state(NR_FREE_PAGES) << (PAGE_SHIFT - 10)) / 1024;
+-    printk("\nInside (freememory) System Call %lu \n", freeMemory);
+-
+     return freeMemory;
+ }
+ 
+-- 
+2.25.1

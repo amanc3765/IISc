@@ -1,0 +1,8 @@
+((A B C F)
+ (B A C D E F)
+ (C A B F D)
+ (D B C F E)
+ (E B D F)
+ (F B E D C A))
+
+(W G Y R)

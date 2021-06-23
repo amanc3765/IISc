@@ -1,0 +1,53 @@
+Assignment 1
+                 
+
+Write a lisp program to colour a map of m countries with a minimum number of
+colours, such that no two adjacent countries have the same colour.
+
+For convenience, let the input to the program be
+
+(1) a representation of the map as a list of lists each of whose car is the
+name of a country with the cdr containing all the countries adjacent to this
+country.
+
+For example,
+
+((A B C F)
+ (B A C D E F)
+ (C A B F D)
+ (D B C F E)
+ (E B D F)
+ (F B E D C A))
+ 
+is input to represent a map of six countries A, B,...,F.
+
+(2) A list of colours available for use.  For example,
+
+ (W G Y R)
+
+The program can output either
+
+ (a) a valid colouring of the map using the minimum of colours as a list of
+two element lists :
+
+((country colour)
+ (country colour)
+ .....)
+
+OR
+
+ (b) NIL in case there is no solution.
+
+For the above example, one valid output is
+
+((A Y)
+ (B R)
+ (C G)
+ (D Y) 
+ (E G)
+ (F W))
+
+The search strategy and evaluation function can be formulated by you.  Different
+search strategies can be tried out.
+
+Send your code, data, etc. as a file called ass1 which is a zipped file containing all the files to susheela@iisc.ac.in and sadiq.jmi@gmail.com by 17th May 2021 10 AM. 

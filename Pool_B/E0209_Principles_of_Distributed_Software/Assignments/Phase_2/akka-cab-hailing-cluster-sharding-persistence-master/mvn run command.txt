@@ -1,0 +1,16 @@
+mvn exec:java -Dexec.mainClass="pods.cabs.App" -Dexec.args="25251 -firstTime"
+
+
+mvn exec:java -Dexec.mainClass="pods.cabs.App" -Dexec.args="25252 -firstTime"
+
+mvn exec:java -Dexec.mainClass="pods.cabs.App" -Dexec.args="25253 -firstTime"
+
+mvn exec:java -Dexec.mainClass="pods.cabs.App" -Dexec.args="25254 -firstTime"
+
+
+
+mvn test
+
+mvn -Dtest="*Persistence" test
+
+

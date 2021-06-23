@@ -1,0 +1,239 @@
+From d0202ca84452a71d7fab4b9ec6365608f5b4be5e Mon Sep 17 00:00:00 2001
+From: Aman Choudhary <amanc3765@gmail.com>
+Date: Sat, 10 Apr 2021 14:39:52 +0530
+Subject: [PATCH 1/2] Assignment 1 Done Commit
+
+---
+ Makefile                               |  2 +-
+ arch/x86/entry/syscalls/syscall_64.tbl |  1 +
+ include/linux/syscalls.h               |  1 +
+ mm/page_alloc.c                        | 60 ++++++++++++++++++++++++++
+ mm/vmscan.c                            | 21 +++++++++
+ 5 files changed, 84 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 1673c12fb..f84a21881 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1097,7 +1097,7 @@ export MODORDER := $(extmod-prefix)modules.order
+ export MODULES_NSDEPS := $(extmod-prefix)modules.nsdeps
+ 
+ ifeq ($(KBUILD_EXTMOD),)
+-core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/
++core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/ balloon/
+ 
+ vmlinux-dirs	:= $(patsubst %/,%,$(filter %/, \
+ 		     $(core-y) $(core-m) $(drivers-y) $(drivers-m) \
+diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+index 78672124d..cccd6f7ba 100644
+--- a/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -406,5 +406,6 @@
+ 545	x32	execveat		compat_sys_execveat
+ 546	x32	preadv2			compat_sys_preadv64v2
+ 547	x32	pwritev2		compat_sys_pwritev64v2
++548       64        hello          sys_balloon
+ # This is the end of the legacy x32 range.  Numbers 548 and above are
+ # not special and are not to be used for x32-specific syscalls.
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 7688bc983..92239f4d7 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -1364,4 +1364,5 @@ int __sys_getsockopt(int fd, int level, int optname, char __user *optval,
+ 		int __user *optlen);
+ int __sys_setsockopt(int fd, int level, int optname, char __user *optval,
+ 		int optlen);
++asmlinkage long sys_balloon(void);
+ #endif
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 519a60d5b..e766c0b12 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -72,6 +72,11 @@
+ #include <linux/padata.h>
+ #include <linux/khugepaged.h>
+ #include <linux/buffer_head.h>
++#include <uapi/asm-generic/siginfo.h>    //siginfo
++#include <linux/pid.h>    //find_task_by_pid_type
++#include <linux/sched.h>
++#include <linux/sched/signal.h>
++#include <asm/current.h>
+ 
+ #include <asm/sections.h>
+ #include <asm/tlbflush.h>
+@@ -4959,6 +4964,18 @@ static inline bool prepare_alloc_pages(gfp_t gfp_mask, unsigned int order,
+ 	return true;
+ }
+ 
++
++// SIGBALLOON subsystem ---------------------------------------------------
++
++#define SIGBALLOON 		 44
++#define LOW_MEMORY_LIMIT (1UL * 1024 * 1024) 
++extern int balloon_subsystem_enter;
++extern struct task_struct* balloon_subsystem_current_task;
++int balloon_subsystem_raise_signal = 1;
++
++//-------------------------------------------------------------------------
++
++
+ /*
+  * This is the 'heart' of the zoned buddy allocator.
+  */
+@@ -4966,11 +4983,54 @@ struct page *
+ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, int preferred_nid,
+ 							nodemask_t *nodemask)
+ {
++
+ 	struct page *page;
+ 	unsigned int alloc_flags = ALLOC_WMARK_LOW;
+ 	gfp_t alloc_mask; /* The gfp_t that was actually used for allocation */
+ 	struct alloc_context ac = { };
+ 
++
++	// SIGBALLOON subsystem ---------------------------------------------------
++
++	/*
++		The following piece of code checks whether the Ballooning subsystem is 
++		active in the kernel, i.e. whether we have made the system call. 
++		It then checks if the physical memory usage is below 1GB or not. 
++		If the check succeeds, then we send a signal from kernel space to our
++		user space application. 
++	*/
++
++	if(balloon_subsystem_enter){	
++
++		unsigned long freeMemory = global_zone_page_state(NR_FREE_PAGES) << (PAGE_SHIFT - 10);
++
++		if(freeMemory <= LOW_MEMORY_LIMIT){
++
++			struct kernel_siginfo balloon_subsystem_signal_info;
++			memset(&balloon_subsystem_signal_info, 0, sizeof(struct kernel_siginfo));
++			balloon_subsystem_signal_info.si_signo = SIGBALLOON;
++			balloon_subsystem_signal_info.si_code = SI_QUEUE;
++			balloon_subsystem_signal_info.si_int = 999; 
++
++			if (balloon_subsystem_current_task != NULL) {
++				if(balloon_subsystem_raise_signal){
++					if (send_sig_info(SIGBALLOON, &balloon_subsystem_signal_info, balloon_subsystem_current_task) >= 0) {
++						balloon_subsystem_raise_signal = 0;							
++					}else{
++						printk("\n /mm/page_alloc.c ERROR: SIGBALLOON failed, Return value is negative\n");
++					}
++				}
++			}else{
++				printk("\n /mm/page_alloc.c ERROR: SIGBALLOON failed, task_struct is NULL\n");
++			}	
++		}else{
++			balloon_subsystem_raise_signal = 1;
++		}
++	}
++
++	//-------------------------------------------------------------------------
++
++
+ 	/*
+ 	 * There are several places where we assume that the order value is sane
+ 	 * so bail out early if the request is out of bound.
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index ad9f2adaf..77ee0cf81 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1064,6 +1064,9 @@ static void page_check_dirty_writeback(struct page *page,
+ 		mapping->a_ops->is_dirty_writeback(page, dirty, writeback);
+ }
+ 
++
++extern int balloon_subsystem_enter;
++
+ /*
+  * shrink_page_list() returns the number of reclaimed pages
+  */
+@@ -1082,6 +1085,7 @@ static unsigned int shrink_page_list(struct list_head *page_list,
+ 	cond_resched();
+ 
+ 	while (!list_empty(page_list)) {
++		
+ 		struct address_space *mapping;
+ 		struct page *page;
+ 		enum page_references references = PAGEREF_RECLAIM;
+@@ -1093,6 +1097,23 @@ static unsigned int shrink_page_list(struct list_head *page_list,
+ 		page = lru_to_page(page_list);
+ 		list_del(&page->lru);
+ 
++
++		// SIGBALLOON subsystem ---------------------------------------------------
++
++		/*
++			Disable the default swapping algorithm of kernel.
++			We are only skipping the swapping of Anonymous page.
++		*/
++
++		if(balloon_subsystem_enter){
++			if(PageAnon(page)){
++				continue;
++			}
++		}
++
++		//-------------------------------------------------------------------------
++
++
+ 		if (!trylock_page(page))
+ 			goto keep;
+ 
+-- 
+2.25.1
+
+
+From 4261bff3b13a74d455fbf9f7955c7d1116ddddcf Mon Sep 17 00:00:00 2001
+From: Aman Choudhary <amanc3765@gmail.com>
+Date: Sat, 10 Apr 2021 14:42:45 +0530
+Subject: [PATCH 2/2] A1:Added balloon folder
+
+---
+ balloon/Makefile  |  1 +
+ balloon/balloon.c | 24 ++++++++++++++++++++++++
+ 2 files changed, 25 insertions(+)
+ create mode 100644 balloon/Makefile
+ create mode 100644 balloon/balloon.c
+
+diff --git a/balloon/Makefile b/balloon/Makefile
+new file mode 100644
+index 000000000..90ed67f74
+--- /dev/null
++++ b/balloon/Makefile
+@@ -0,0 +1 @@
++obj-y := balloon.o 
+diff --git a/balloon/balloon.c b/balloon/balloon.c
+new file mode 100644
+index 000000000..9257c006a
+--- /dev/null
++++ b/balloon/balloon.c
+@@ -0,0 +1,24 @@
++// SIGBALLOON subsystem ---------------------------------------------------
++
++#include <linux/kernel.h>
++#include <linux/sched.h>
++
++#define SIGBALLOON 		44
++
++int balloon_subsystem_enter;
++struct task_struct *balloon_subsystem_current_task;
++
++asmlinkage long __x64_sys_balloon(void){
++
++	balloon_subsystem_enter = 1;
++	printk("\nInside System Call\n");
++
++	balloon_subsystem_current_task = current;	
++	printk("\nRegistered process with PID: %d\n",balloon_subsystem_current_task->pid);
++
++    return 0;
++} 
++
++//-------------------------------------------------------------------------
++
++
+-- 
+2.25.1
+

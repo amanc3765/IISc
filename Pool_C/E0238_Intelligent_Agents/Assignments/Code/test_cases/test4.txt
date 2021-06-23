@@ -1,0 +1,6 @@
+((A B C D)
+ (B A C D)
+ (C A B D)
+ (D A B C))
+
+(W G Y)

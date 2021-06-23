@@ -1,0 +1,52 @@
+Wallet 
+	Externally Exposed
+	- GetBalance
+	- AddBalance
+	- DeductBalance
+	
+	For Response
+	- ResponseBalance
+	
+Cab
+	Externally Exposed
+	- CabGenericCommand
+	- RideEnded
+	- SignIn
+	- SignOut
+	- NumRides
+	- Reset
+	
+	Only Internal
+	- RequestRide
+	- RideStarted
+	- RideCanceled
+	
+	For Response
+	- NumRidesReponse
+
+
+RideService
+	Externally Exposed
+	- RideRequest
+	
+	Only Internal
+	- CabSignsIn
+	- CabSignsInInternal
+	- CabSignsOut
+	- CabSignsOutInternal
+	- RideResponseSuccessInternal
+	- RideEnded
+	- RideEndedInternal
+	
+	For response
+	- RideResponse
+
+FulfillRide
+	Only Internal
+	- Command
+	- RideEnded
+	- RideAcceptedInternal
+	- WrappedResponseBalance
+
+
+
