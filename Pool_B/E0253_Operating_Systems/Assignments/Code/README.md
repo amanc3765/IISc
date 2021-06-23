@@ -103,7 +103,7 @@ To run "Ballooning application", move "main.c" (available in /Submissions/17920_
 		swapon /swapfile 
 
 
-8) Debigging Kernel
+8) Debugging Kernel
 -------------------------------------------------------------
 
 	Open 1st terminal:
