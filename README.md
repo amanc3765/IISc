@@ -4,19 +4,19 @@ Courses covered at MTech CSA 2020-22
 Pool A
 -------------------------------------------------
 
-	E0225_Design_&_Analysis_of_Algorithms
-	E0208_Computational_Geometry
+	E0225 Design & Analysis of Algorithms
+	E0208 Computational Geometry
 
 Pool B
 -------------------------------------------------
 
-	E0256_Computer_Systems_Security
-	E0243_Computer_Architecture
-	E0209_Principles_of_Distributed_Software
-	E0253_Operating_Systems
+	E0256 Computer Systems Security
+	E0243 Computer Architecture
+	E0209 Principles of Distributed Software
+	E0253 Operating Systems
 
 Pool C
 -------------------------------------------------
 
-	E0226_Linear_Algebra_&_Probability
-	E0238_Intelligent_Agents
+	E0226 Linear Algebra & Probability
+	E0238 Intelligent Agents
