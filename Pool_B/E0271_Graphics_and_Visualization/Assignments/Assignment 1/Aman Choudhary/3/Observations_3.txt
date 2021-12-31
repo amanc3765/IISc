@@ -1,0 +1,7 @@
+Observation for Problem 3
+__________________________________________
+
+We need to choose a color map that balances off the tradeoff between performance and aesthetics.
+
+We can use a complex color map to improve the quality of visualtization, but it might be compute 
+intensive or might involve a long if-else ladder, which would increase the time to color each pixel.

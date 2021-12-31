@@ -1,0 +1,5 @@
+<BasicTest1: int myIncrement(int)>
+        i0 := @parameter0: int
+        $i1 = i0 + 1
+        return $i1
+

@@ -1,0 +1,8 @@
+<BasicTest1: int myChoose(int)>
+        i0 := @parameter0: int
+        if i0 != 0 goto label1
+        b1 = 10
+        goto label2
+        b1 = 20
+        return b1
+

@@ -1,0 +1,1652 @@
+=== running Analysis.java
+=== Interval ANALYSIS
+=== Running Analysis ./target2-mine MyTargetClass1 MyTargetClass1 testConditional
+[32m
+________________________________________________________________[0m
+
+tclass: MyTargetClass1
+tmethod: <MyTargetClass1: void testConditional(int)>
+tmethodname: testConditional
+
+00:         i0 := @parameter0: int
+01:         if i0 > 0 goto label2
+02:         $i2 = (int) -10
+03:         if i0 <= $i2 goto label1
+04:         $i4 = (int) -5
+05:         if i0 != $i4 goto label3
+06:         goto label3
+07:         if i0 > 15 goto label3
+08:         goto label3
+09:         if i0 >= 10 goto label3
+10:         return
+
+List of variables : i0, $i2, $i4, @parameter0, 
+
+
+Visited unit : i0 := @parameter0: int
+
+
+Visited unit : if i0 > 0 goto (branch)
+
+
+Visited unit : $i2 = (int) -10
+
+
+Visited unit : if i0 <= $i2 goto (branch)
+
+
+Visited unit : $i4 = (int) -5
+
+
+Visited unit : if i0 != $i4 goto return
+
+
+Visited unit : goto [?= return]
+
+
+Visited unit : return
+
+
+Visited unit : if i0 > 15 goto return
+
+
+Visited unit : goto [?= return]
+
+
+Visited unit : if i0 >= 10 goto return
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 1
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mi0 := @parameter0: int[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mi0 := @parameter0: int[0m is instance of JAssignStmt
+LOG: runKildall()=> transState: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 2
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mif i0 != $i4 goto return[0m
+CurState at this unmarked unit: [35mbot[0m
+
+LOG: runKildall()=> [36mif i0 != $i4 goto return[0m is instance of JIfStmt
+LOG: [32mtf_condstmt => Branch Type : true[0m
+LOG: [32mtf_condstmt => Since incoming state is bot, returning bot[0m
+LOG: [32mtf_condstmt => Branch Type : false[0m
+LOG: [32mtf_condstmt => Since incoming state is bot, returning bot[0m
+LOG: runKildall()=> transStateTrue: [35mbot[0m
+LOG: runKildall()=> transStateFalse: [35mbot[0m
+LOG: runKildall()=> nextUnitTrue : [35mreturn[0m, nextUnitFalse: [35mgoto [?= return][0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 3
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mif i0 > 0 goto (branch)[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mif i0 > 0 goto (branch)[0m is instance of JIfStmt
+LOG: [32mtf_condstmt => Branch Type : true[0m
+tf_condstmt => expr : i0 > 0, type: soot.jimple.internal.JGtExpr
+LOG: [32mtf_condstmt => op1: [-inf, +inf], op2: [0, 0][0m
+LOG: [31mjoin => arg is null so returning : [0, 0][0m
+LOG: [31mjoin => arg is null so returning : [1, +inf][0m
+LOG: [32mtf_condstmt => Branch Type : false[0m
+tf_condstmt => expr : i0 > 0, type: soot.jimple.internal.JGtExpr
+LOG: [32mtf_condstmt => op1: [-inf, +inf], op2: [0, 0][0m
+LOG: [31mjoin => arg is null so returning : [0, 0][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: runKildall()=> transStateTrue: [35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+LOG: runKildall()=> transStateFalse: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+LOG: runKildall()=> nextUnitTrue : [35mif i0 >= 10 goto return[0m, nextUnitFalse: [35m$i2 = (int) -10[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 4
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mgoto [?= return][0m
+CurState at this unmarked unit: [35mbot[0m
+
+LOG: runKildall()=> [36mgoto [?= return][0m is instance of JGotoStmt
+LOG: [32mApplying join operator, joinedNextState: bot[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 5
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mif i0 >= 10 goto return[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mif i0 >= 10 goto return[0m is instance of JIfStmt
+LOG: [32mtf_condstmt => Branch Type : true[0m
+tf_condstmt => expr : i0 >= 10, type: soot.jimple.internal.JGeExpr
+LOG: [32mtf_condstmt => op1: [1, +inf], op2: [10, 10][0m
+LOG: [31mjoin => arg is null so returning : [10, 10][0m
+LOG: [31mjoin => arg is null so returning : [11, +inf][0m
+LOG: [32mtransSubInterval1Left : null[0m
+LOG: [32mtransSubInterval2Left : null[0m
+LOG: [32mtransSubInterval3Left : [10, 10][0m
+LOG: [32mtransSubInterval4Left : null[0m
+LOG: [31mjoin => arg is null so returning : [10, 10][0m
+LOG: [31mjoin => arg is null so returning : [10, 10][0m
+LOG: [32mAfter joining , joinedTransLeft: [10, 10]joinedTransRight: [10, 10][0m
+LOG: [31mjoin => arg is null so returning : [1, +inf][0m
+LOG: [31mjoin => arg is null so returning : [10, 10][0m
+LOG: [32mtf_condstmt => Branch Type : false[0m
+tf_condstmt => expr : i0 >= 10, type: soot.jimple.internal.JGeExpr
+LOG: [32mtf_condstmt => op1: [1, +inf], op2: [10, 10][0m
+LOG: [31mjoin => arg is null so returning : [10, 10][0m
+LOG: [31mjoin => arg is null so returning : [1, 10][0m
+LOG: [32mtransSubInterval1Left : [1, +inf][0m
+LOG: [32mtransSubInterval2Left : null[0m
+LOG: [32mtransSubInterval3Left : [10, 10][0m
+LOG: [32mtransSubInterval4Left : [1, +inf][0m
+LOG: [31mjoin => arg is null so returning : [1, +inf][0m
+LOG: [31mjoin => arg is null so returning : [10, 10][0m
+LOG: [32mAfter joining , joinedTransLeft: [1, +inf]joinedTransRight: [10, 10][0m
+LOG: [31mjoin => arg is null so returning : [1, +inf][0m
+LOG: [31mjoin => arg is null so returning : [10, 10][0m
+LOG: runKildall()=> transStateTrue: [35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+LOG: runKildall()=> transStateFalse: [35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+LOG: runKildall()=> nextUnitTrue : [35mreturn[0m, nextUnitFalse: [35mnull[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 6
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mgoto [?= return][0m
+CurState at this unmarked unit: [35mbot[0m
+
+LOG: runKildall()=> [36mgoto [?= return][0m is instance of JGotoStmt
+LOG: [32mApplying join operator, joinedNextState: {
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 7
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mif i0 <= $i2 goto (branch)[0m
+CurState at this unmarked unit: [35mbot[0m
+
+LOG: runKildall()=> [36mif i0 <= $i2 goto (branch)[0m is instance of JIfStmt
+LOG: [32mtf_condstmt => Branch Type : true[0m
+LOG: [32mtf_condstmt => Since incoming state is bot, returning bot[0m
+LOG: [32mtf_condstmt => Branch Type : false[0m
+LOG: [32mtf_condstmt => Since incoming state is bot, returning bot[0m
+LOG: runKildall()=> transStateTrue: [35mbot[0m
+LOG: runKildall()=> transStateFalse: [35mbot[0m
+LOG: runKildall()=> nextUnitTrue : [35mif i0 > 15 goto return[0m, nextUnitFalse: [35m$i4 = (int) -5[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 8
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mreturn[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mreturn[0m is instance of soot.jimple.internal.JReturnVoidStmt
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 9
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mreturn[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36m$i2 = (int) -10[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36m$i2 = (int) -10[0m is instance of JAssignStmt
+LOG: [32m(int) -10, type: soot.jimple.internal.JCastExpr[0m
+LOG: [32m-10, type: soot.jimple.IntConstant[0m
+LOG: runKildall()=> transState: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 10
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35mbot
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35mbot
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mif i0 <= $i2 goto (branch)[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mif i0 <= $i2 goto (branch)[0m is instance of JIfStmt
+LOG: [32mtf_condstmt => Branch Type : true[0m
+tf_condstmt => expr : i0 <= $i2, type: soot.jimple.internal.JLeExpr
+LOG: [32mtf_condstmt => op1: [-inf, 0], op2: [-10, -10][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-10, -10][0m
+LOG: [32mtransSubInterval1Left : null[0m
+LOG: [32mtransSubInterval2Left : null[0m
+LOG: [32mtransSubInterval3Left : [-10, -10][0m
+LOG: [32mtransSubInterval4Left : null[0m
+LOG: [31mjoin => arg is null so returning : [-10, -10][0m
+LOG: [31mjoin => arg is null so returning : [-10, -10][0m
+LOG: [32mAfter joining , joinedTransLeft: [-10, -10]joinedTransRight: [-10, -10][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-10, -10][0m
+LOG: [32mtf_condstmt => Branch Type : false[0m
+tf_condstmt => expr : i0 <= $i2, type: soot.jimple.internal.JLeExpr
+LOG: [32mtf_condstmt => op1: [-inf, 0], op2: [-10, -10][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-10, -10][0m
+LOG: [32mtransSubInterval1Left : [-inf, 0][0m
+LOG: [32mtransSubInterval2Left : null[0m
+LOG: [32mtransSubInterval3Left : [-10, -10][0m
+LOG: [32mtransSubInterval4Left : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-10, -10][0m
+LOG: [32mAfter joining , joinedTransLeft: [-inf, 0]joinedTransRight: [-10, -10][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-10, -10][0m
+LOG: runKildall()=> transStateTrue: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}[0m
+LOG: runKildall()=> transStateFalse: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}[0m
+LOG: runKildall()=> nextUnitTrue : [35mif i0 > 15 goto return[0m, nextUnitFalse: [35m$i4 = (int) -5[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 11
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36m$i4 = (int) -5[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36m$i4 = (int) -5[0m is instance of JAssignStmt
+LOG: [32m(int) -5, type: soot.jimple.internal.JCastExpr[0m
+LOG: [32m-5, type: soot.jimple.IntConstant[0m
+LOG: runKildall()=> transState: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 12
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mif i0 != $i4 goto return[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}[0m
+
+LOG: runKildall()=> [36mif i0 != $i4 goto return[0m is instance of JIfStmt
+LOG: [32mtf_condstmt => Branch Type : true[0m
+tf_condstmt => expr : i0 != $i4, type: soot.jimple.internal.JNeExpr
+LOG: [32mtf_condstmt => op1: [-inf, 0], op2: [-5, -5][0m
+LOG: [32mtransSubInterval1Left : [-inf, 0][0m
+LOG: [32mtransSubInterval2Left : null[0m
+LOG: [32mtransSubInterval3Left : [-5, -5][0m
+LOG: [32mtransSubInterval4Left : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: [31mjoin => arg is null so returning : [-5, -5][0m
+LOG: [32mAfter joining , joinedTransLeft: [-inf, 0]joinedTransRight: [-5, -5][0m
+LOG: [32mtf_condstmt => Branch Type : false[0m
+tf_condstmt => expr : i0 != $i4, type: soot.jimple.internal.JNeExpr
+LOG: [32mtf_condstmt => op1: [-inf, 0], op2: [-5, -5][0m
+LOG: [32mtransSubInterval1Left : null[0m
+LOG: [32mtransSubInterval2Left : null[0m
+LOG: [32mtransSubInterval3Left : [-5, -5][0m
+LOG: [32mtransSubInterval4Left : null[0m
+LOG: [31mjoin => arg is null so returning : [-5, -5][0m
+LOG: [31mjoin => arg is null so returning : [-5, -5][0m
+LOG: [32mAfter joining , joinedTransLeft: [-5, -5]joinedTransRight: [-5, -5][0m
+LOG: runKildall()=> transStateTrue: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}[0m
+LOG: runKildall()=> transStateFalse: [35m{
+@parameter0:[-inf, +inf],
+i0:[-5, -5],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}[0m
+LOG: runKildall()=> nextUnitTrue : [35mreturn[0m, nextUnitFalse: [35mgoto [?= return][0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 13
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-5, -5],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mgoto [?= return][0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-5, -5],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}[0m
+
+LOG: runKildall()=> [36mgoto [?= return][0m is instance of JGotoStmt
+LOG: [32mApplying join operator, joinedNextState: {
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 14
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-5, -5],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mreturn[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mreturn[0m is instance of soot.jimple.internal.JReturnVoidStmt
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 15
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-5, -5],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35mbot
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 > 15 goto return[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mif i0 > 15 goto return[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mif i0 > 15 goto return[0m is instance of JIfStmt
+LOG: [32mtf_condstmt => Branch Type : true[0m
+tf_condstmt => expr : i0 > 15, type: soot.jimple.internal.JGtExpr
+LOG: [32mtf_condstmt => op1: [-inf, 0], op2: [15, 15][0m
+LOG: [32mtf_condstmt => Branch Type : false[0m
+tf_condstmt => expr : i0 > 15, type: soot.jimple.internal.JGtExpr
+LOG: [32mtf_condstmt => op1: [-inf, 0], op2: [15, 15][0m
+LOG: [31mjoin => arg is null so returning : [15, 15][0m
+LOG: [31mjoin => arg is null so returning : [-inf, 0][0m
+LOG: runKildall()=> transStateTrue: [35mbot[0m
+LOG: runKildall()=> transStateFalse: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}[0m
+LOG: runKildall()=> nextUnitTrue : [35mreturn[0m, nextUnitFalse: [35mgoto [?= return][0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 16
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-5, -5],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 > 15 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mgoto [?= return][0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mgoto [?= return][0m is instance of JGotoStmt
+LOG: [32mApplying join operator, joinedNextState: {
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+[32m
+________________________________________________________________[0m
+[32mrunKildall()=> Kildall Iteration Number : 17
+[0m
+
+printAllStates=> 
+
+Program point : [36mi0 := @parameter0: int[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 != $i4 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 > 0 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-5, -5],
+$i2:[-inf, 0],
+$i4:[-5, -5],
+}
+[0m
+Program point : [36mif i0 >= 10 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[1, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mgoto [?= return][0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 <= $i2 goto (branch)[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-10, -10],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mreturn[0m [[31mMARKED[0m]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i2 = (int) -10[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36m$i4 = (int) -5[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+Program point : [36mif i0 > 15 goto return[0m [UNMARKED]
+[35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, 0],
+$i2:[-inf, 0],
+$i4:[-inf, +inf],
+}
+[0m
+
+
+LOG: runKildall()=> Unmarked unit: [36mreturn[0m
+CurState at this unmarked unit: [35m{
+@parameter0:[-inf, +inf],
+i0:[-inf, +inf],
+$i2:[-inf, +inf],
+$i4:[-inf, +inf],
+}[0m
+
+LOG: runKildall()=> [36mreturn[0m is instance of soot.jimple.internal.JReturnVoidStmt

@@ -1,0 +1,68 @@
+2(c) Comparing CPU vs GPU based approach for rendering slice
+______________________________________________________________________
+
+o Image Quality
+
+	Both approaches render images of comparable quality. The GPU's image has slightly better contrast.
+
+o Performance
+
+	Both approaches perform equivalently. For skull dataset, both approaches reach ~47 FPS.
+
+o Preprocessing
+	
+	1) Vertex Buffer: 
+	Need to pass all the points in the slice for CPU, as compared to passing only 4 boundary points for GPU.
+	
+	2) Index Buffer: 
+	Need to compute the index buffer for entire slice for CPU, whereas for GPU, we only need a simple index buffer of 2 triangles (6 indices).
+	
+	3) Texture:
+	 For GPU, we need to create the 3D texture.
+
+
+2(e) (i) Comparing CPU vs GPU based approach for finding Isocontours
+______________________________________________________________________
+
+o Image Quality
+
+	The image produced by CPU, looks sharper and is actually more precise due to exact matching for integer valued scalar values. In contrast the isocontour computed on GPU is an approximate one, as there is some marginal error involved during floating point matching of normalized scalar values sampled from the 3D texture.
+
+o Performance
+
+	Both approaches perform equivalently. For skull dataset, both approaches reach ~47 FPS.
+
+o Preprocessing
+
+	1) Vertex Buffer: 
+	Need to recompute vertex buffer for entire slice in CPU based approach, everytime we change the slice location or scalar value. In contrast for GPU based approach, we only need to recompute vertex buffer when changing slice location, and that too for a total of 4 boundary points.
+	
+	2) Index Buffer: 
+	No index buffer required for CPU, whereas for GPU, we need an index buffer (although very trivial) of 2 triangles (6 indices).
+	
+	3) Texture: 
+	For GPU, we need to create the 3D texture.
+
+
+2(e) (ii) Comparing CPU vs GPU based approach for finding Isosurfaces
+______________________________________________________________________
+
+o Image Quality
+
+	The image quality is similar for both cases.
+
+o Performance
+
+	For CPU based approach, if the scalar value is fixed, then computation of isosurface happens only once, whereas for GPU, we need to compute the isosurface for every frame.
+
+o Preprocessing
+	1) Vertex Buffer: 
+	For CPU, the vertex buffer has a lot more points as it contains all the triangle primitives that make up the isosurface, whereas for GPU we only need to pass the origin of cubes. The rest of computation is done in geometry shader. Hence, data movement overhead is very less in GPU.
+
+	In CPU based approach, the vertex buffer changes everytime we change the scalar value, whereas it remains constant for GPU.
+
+	2) Index Buffer:
+	No index buffer required in both cases.
+
+
+

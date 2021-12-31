@@ -1,0 +1,18 @@
+Observation for Problem 2
+__________________________________________
+
+
+Order of Tranformation:
+------------------------------
+1. Rotation 
+2. Translation
+
+The object moves like a wheel in circular motion along the negative X axis.
+
+
+Order of Tranformation:
+------------------------------
+1. Translation
+2. Rotation 
+
+The object moves in a spiral motion, moving towards the bottom of screen.

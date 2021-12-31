@@ -1,0 +1,99 @@
+class BasicTest1 extends java.lang.Object
+{
+/*BasicTests.java*/
+
+    void <init>()
+    {
+        BasicTest1 r0;
+
+        r0 := @this: BasicTest1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    static int myIncrement(int)
+    {
+        int i0, $i1;
+
+        i0 := @parameter0: int;
+
+        $i1 = i0 + 1;
+
+        return $i1;
+    }
+
+    static int add_x(int)
+    {
+        byte b3;
+        int i0, $i1, $i2;
+
+        i0 := @parameter0: int;
+
+        b3 = 0;
+
+        if i0 != 0 goto label1;
+
+        b3 = 10;
+
+     label1:
+        $i1 = 0 + b3;
+
+        $i2 = $i1 * 3;
+
+        return $i2;
+    }
+
+    static int mySum()
+    {
+        int i0, i1;
+
+        i0 = 0;
+
+        i1 = 0;
+
+     label1:
+        if i1 > 10 goto label2;
+
+        i0 = i0 + i1;
+
+        i1 = i1 + 1;
+
+        goto label1;
+
+     label2:
+        return i0;
+    }
+
+    static int myChoose(int)
+    {
+        int i0;
+        byte b1;
+
+        i0 := @parameter0: int;
+
+        if i0 != 0 goto label1;
+
+        b1 = 10;
+
+        goto label2;
+
+     label1:
+        b1 = 20;
+
+     label2:
+        return b1;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0;
+
+        r0 := @parameter0: java.lang.String[];
+
+        staticinvoke <BasicTest1: int mySum()>();
+
+        return;
+    }
+}

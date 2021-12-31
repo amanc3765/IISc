@@ -1,0 +1,9 @@
+<BasicTest1: int mySum()>
+        i0 = 0
+        i1 = 0
+        if i1 > 10 goto label2
+        i0 = i0 + i1
+        i1 = i1 + 1
+        goto label1
+        return i0
+

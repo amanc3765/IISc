@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "pkgs/soot-4.3.0-with-deps.jar"
+    ]
+}
