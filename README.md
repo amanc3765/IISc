@@ -14,6 +14,8 @@ Pool B
 	E0243 Computer Architecture
 	E0209 Principles of Distributed Software
 	E0253 Operating Systems
+	E0227 Program Analysis and Verification
+	E0271 Graphics and Visualization
 
 Pool C
 -------------------------------------------------
