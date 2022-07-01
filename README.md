@@ -24,5 +24,6 @@ Pool C
 	E0238 Intelligent Agents
 
 -------------------------------------------------
+	E0399 Reasearch in Computer Science
 	MTech Project
 
