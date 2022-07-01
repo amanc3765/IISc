@@ -1,0 +1,7 @@
+
+[LOG] CONFIG Number_of_Aggregated_L1VTLBs: 16 (of size 4)
+[LOG] CONFIG Number_of_Clusters: 2
+[LOG] CONFIG Cache_Type: PIPT
+
+Profiling server running on: 40631
+Monitoring simulation with http://localhost:39077

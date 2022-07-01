@@ -1,0 +1,30 @@
+
+[LOG] CONFIG Number_of_Aggregated_L1VTLBs: 64 (of size 1)
+[LOG] CONFIG Number_of_Clusters: 4
+[LOG] CONFIG Cache_Type: PIPT
+
+Profiling server running on: 33427
+Monitoring simulation with http://localhost:43619
+[LOG] STAT Total_Memory_Consumed_MB : 31.158516
+[LOG] STAT Total_Cycles : 35256549
+[LOG] STAT L1_Hit : 13219698
+[LOG] STAT L1_Miss : 68576
+[LOG] STAT L1_MSHR_Hit : 19358
+[LOG] STAT L1_Cold_Miss : 19729
+[LOG] STAT L1_Conflict_Miss : 0
+[LOG] STAT L1_Capacity_Miss : 68205
+[LOG] STAT L1_Top_Port_Messages : 13307632
+[LOG] STAT L2_Hit : 23163
+[LOG] STAT L2_Miss : 44909
+[LOG] STAT L2_MSHR_Hit : 552
+[LOG] STAT L2_Cold_Miss : 5420
+[LOG] STAT L2_Conflict_Miss : 0
+[LOG] STAT L2_Capacity_Miss : 40041
+[LOG] STAT L1VTLB_Miss_rate : 0.66
+[LOG] STAT L2TLB_Miss_rate : 66.25
+[LOG] STAT L1VCache_Read_Miss_rate : 44.49
+[LOG] STAT L2Cache_Read_Miss_rate : 15.63
+[LOG] STAT L1VCache_Write_Miss_rate : 100.00
+[LOG] STAT L2Cache_Write_Miss_rate : 72.37
+[LOG] STAT L1VTLB_MPKI : 0.58
+[LOG] STAT L2TLB_MPKI : 0.30

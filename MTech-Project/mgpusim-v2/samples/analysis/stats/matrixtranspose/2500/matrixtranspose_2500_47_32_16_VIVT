@@ -1,0 +1,24 @@
+Profiling server running on: 40945
+Monitoring simulation with http://localhost:36161
+[LOG] STAT Total_Memory_Consumed_MB : 47.684826
+[LOG] STAT Total_Cycles : 3028759
+[LOG] STAT L1_Hit : 30706
+[LOG] STAT L1_Miss : 200090
+[LOG] STAT L1_MSHR_Hit : 334790
+[LOG] STAT L1_Cold_Miss : 255228
+[LOG] STAT L1_Conflict_Miss : 0
+[LOG] STAT L1_Capacity_Miss : 279652
+[LOG] STAT L2_Hit : 11887
+[LOG] STAT L2_Miss : 183961
+[LOG] STAT L2_MSHR_Hit : 4290
+[LOG] STAT L2_Cold_Miss : 15082
+[LOG] STAT L2_Conflict_Miss : 0
+[LOG] STAT L2_Capacity_Miss : 173169
+[LOG] STAT L1VTLB_Miss_rate : 94.57
+[LOG] STAT L2TLB_Miss_rate : 94.06
+[LOG] STAT L1VCache_Read_Miss_rate : 100.00
+[LOG] STAT L2Cache_Read_Miss_rate : 99.81
+[LOG] STAT L1VCache_Write_Miss_rate : 100.00
+[LOG] STAT L2Cache_Write_Miss_rate : 99.76
+[LOG] STAT L1VTLB_MPKI : 583.37
+[LOG] STAT L2TLB_MPKI : 205.32
